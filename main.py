@@ -1,5 +1,6 @@
-import pygame
 import random
+
+import pygame
 
 # -----------------------------
 # Konstanta & Konfigurasi
@@ -95,7 +96,9 @@ class Ball:
             self.rect.right = paddle_rect.left
 
         # Batasi vy agar tidak terlalu ekstrem
-        self.vy = max(-self.base_speed - MAX_SPIN, min(self.vy, self.base_speed + MAX_SPIN))
+        self.vy = max(
+            -self.base_speed - MAX_SPIN, min(self.vy, self.base_speed + MAX_SPIN)
+        )
 
     def draw(self, surface):
         pygame.draw.rect(surface, WHITE, self.rect)
@@ -104,6 +107,7 @@ class Ball:
 # -----------------------------
 # Fungsi utama game
 # -----------------------------
+
 
 def main():
     pygame.init()
@@ -135,7 +139,7 @@ def main():
         speed=BALL_SPEED,
     )
 
-    score_left = 0   # skor pemain (kiri)
+    score_left = 0  # skor pemain (kiri)
     score_right = 0  # skor AI (kanan)
 
     running = True
@@ -163,7 +167,9 @@ def main():
         # Logika AI sederhana
         # -------------------------
         # AI akan menggeser ke arah posisi Y bola dengan batas kecepatan AI_SPEED
-        if ai.rect.centery < ball.rect.centery - 6:  # beri deadzone 6 px agar tidak jitter
+        if (
+            ai.rect.centery < ball.rect.centery - 6
+        ):  # beri deadzone 6 px agar tidak jitter
             ai.move(ai.speed)
         elif ai.rect.centery > ball.rect.centery + 6:
             ai.move(-ai.speed)
